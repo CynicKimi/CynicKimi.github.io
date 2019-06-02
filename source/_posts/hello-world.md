@@ -1,5 +1,6 @@
 ---
 title: Hello World
+toc: true
 tags:
 - test
 ---

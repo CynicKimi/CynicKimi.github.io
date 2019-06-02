@@ -1,13 +1,16 @@
 ---
 title: 基础
+toc: true
 categories:
 - hexo 
 tags:
   - Testing
   - Another Tag  
 ---
-### nginx
-##### 基本命令
+# nginx
+
+## 基本命令
+
 启动位置：`/usr/local/nginx/sbin/nginx`
 -c参数加载指定配置文件,不指定加载默认配置文件
 
@@ -27,7 +30,7 @@ server{
 }
 ```
 
-##### 修改nginx监听不同的php-fpm
+## 修改nginx监听不同的php-fpm
 
 - 修改php-fpm配置文件：www.conf 文件，listen = 127.0.0.1:9000
 - 修改nginx配置文件：
@@ -40,7 +43,8 @@ server{
  }
 ```
 
-#### Nginx日志分隔
+## Nginx日志分隔
+
 nginx的日志文件没有rotate功能。编写每天生成一个日志，我们可以写一个nginx日志切割脚本来自动切割日志文件。
 
 第一步就是重命名日志文件，不用担心重命名后nginx找不到日志文件而丢失日志。在你未重新打开原名字的日志文件前，nginx还是会向你重命名的文件写日志，Linux是靠文件描述符而不是文件名定位文件。

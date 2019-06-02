@@ -3,8 +3,8 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle:
+title: Hello World 42
+subtitle: 工欲善其事必先利其器
 description:
 keywords:
 author: John Doe
@@ -72,6 +72,14 @@ pagination_dir: page
 
 # Extensions
 ## Plugins: https://hexo.io/plugins/
+# Extensions
+plugins:
+    hexo-generator-feed
+#Feed Atom
+feed:
+    type: atom
+    path: atom.xml
+    limit: 20
 ## Themes: https://hexo.io/themes/
 theme: maupassant
 

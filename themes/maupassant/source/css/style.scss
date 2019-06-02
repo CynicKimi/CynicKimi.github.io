@@ -108,7 +108,7 @@ div {
 
 #sidebar {
     border-left: 1px solid #ddd;
-    padding-left: 35px;
+    padding-left: 20px;
     margin-top: 40px;
     padding-bottom: 20px;
     word-wrap: break-word;
@@ -116,7 +116,7 @@ div {
         margin-bottom: 30px;
         .widget-title {
             color: #6E7173;
-            line-height: 2.7;
+            line-height: 2;
             margin-top: 0;
             font-size: 16px;
             border-bottom: 1px solid #ddd;
@@ -1533,10 +1533,11 @@ figure.highlight,
 }
 .toc-title {
   font-size: 120%;
+  border-bottom: 1px solid #ddd;
+  line-height: 2;
 }
 #toc {
   line-height: 1em;
-  float: right;
   .toc {
     padding: 0;
     margin: 0.5em;
@@ -1742,7 +1743,7 @@ em.search-keyword {
 .post-copyright {
     margin: 2em 0 0;
     padding: 0.5em 1em;
-    border-left: 3px solid #FF1700;
+    border-left: 3px solid #6190e8;
     background-color: #F9F9F9;
     list-style: none;
     li {
