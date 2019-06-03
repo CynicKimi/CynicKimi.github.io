@@ -61,3 +61,11 @@ block content
 
     if page.comments
       include _partial/comments.pug
+
+block toc
+  if page.toc
+    div(class='clear')
+      div(id='toc')
+        div(class='toc-title')
+          i(class='fa fa-tasks')= ' ' + __('contents')
+        != toc(page.content, {list_number: theme.toc_number})

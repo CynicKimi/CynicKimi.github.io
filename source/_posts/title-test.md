@@ -11,7 +11,7 @@ tags:
 
 ## 基本命令
 
-启动位置：`/usr/local/nginx/sbin/nginx`
+启动位置 ：`/usr/local/nginx/sbin/nginx`
 -c参数加载指定配置文件,不指定加载默认配置文件
 
 重载配置：`/usr/local/nginx/sbin/nginx -s reload`
