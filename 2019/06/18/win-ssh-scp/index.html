@@ -1,0 +1,51 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.8.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>WIN10下使用自带的SSH和SCP命令 | Hello World 42</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/8.0.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/3.4.0/jquery.min.js"></script><link rel="icon" mask sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">WIN10下使用自带的SSH和SCP命令</h1><a id="logo" href="/.">Hello World 42</a><p class="description">工欲善其事必先利其器</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">WIN10下使用自带的SSH和SCP命令</h1><div class="post-meta">Jun 18, 2019<span> | </span><span class="category"><a href="/categories/tools/">tools</a></span></div><div class="post-content"><p>发现村里刚通网，才知道win10下的命令行已经支持ssh和scp命令了<br><a id="more"></a><br><img src="https://github.com/CynicKimi/images/raw/master/ssh_and_scp.PNG" alt="ssh_and_scp"></p>
+<h3 id="SCP"><a href="#SCP" class="headerlink" title="SCP"></a>SCP</h3><p>使用：<br><code>scp -P &lt;端口&gt; &lt;filename&gt; &lt;用户名&gt;@&lt;IP地址&gt;:&lt;目标目录&gt;</code></p>
+<p><img src="https://github.com/CynicKimi/images/raw/master/scp_1.PNG" alt="scp"></p>
+<p><filename>参数还有另外几种写法：</filename></p>
+<ul>
+<li>在当前目录：<code>./filename</code></li>
+<li>在其他盘下：<code>D:/filename</code></li>
+</ul>
+<h3 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h3><p>使用：<br><code>ssh -p &lt;端口&gt; &lt;用户名&gt;@&lt;IP地址&gt;</code></p>
+<p><img src="https://github.com/CynicKimi/images/raw/master/ssh_login.PNG" alt="ssh_login"></p>
+<h4 id="公钥方式登录"><a href="#公钥方式登录" class="headerlink" title="公钥方式登录"></a>公钥方式登录</h4><p>ssh登录linux一般有两种方式：</p>
+<ul>
+<li>用户名和密码（每次登录都需要输入密码）</li>
+<li>用户名公钥</li>
+</ul>
+<p>1.创建公钥私钥：cmd上执行ssh-keygen命令创建密钥对</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C  &apos;your email@domain.com&apos;</span><br><span class="line"></span><br><span class="line">-t 指定密钥类型，默认即 rsa ，可以省略</span><br><span class="line">-C 设置注释文字，比如你的邮箱，可以省略</span><br></pre></td></tr></table></figure>
+<p>生成过程中会提示输入密码两次，如果不想在使用公钥的时候输入密码，可以回车跳过；<br>密钥默认保存位置在 ~/.ssh 目录下，打开后会看到私钥文件 id_rsa 和公钥文件 id_rsa.pub；</p>
+<p><img src="https://github.com/CynicKimi/images/raw/master/ssh_rsa.png" alt="ssh_rsa"></p>
+<p>2.复制公钥至服务器<br>使用 scp 命令将本地的公钥文件 id_rsa.pub 复制到需要连接的Linux服务器的·<code>~/.ssh</code>目录下：<br><code>scp -P &lt;端口号&gt;  ~/.ssh/id_rsa.pub  &lt;用户名&gt;@&lt;IP地址&gt;:~/.ssh</code></p>
+<p>3.把公钥内容追加到<code>authorized_keys</code>文件里（不存在则创建一个）：<br><code>cat id_rsa.pub &gt;&gt; authorized_keys</code></p>
+<p>期间可能出现问题的解决办法：<br>.权限问题：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod 700 ~/.ssh/</span><br><span class="line">chmod 600 authorized_keys</span><br></pre></td></tr></table></figure>
+<p>.ssh问题：<br>找到/etc/ssh/sshd_config ，把RSAAuthentication和PubkeyAuthentication两行前面的#注释去掉。</p>
+<p>4.重启sshd服务(centos7):</p>
+<p><code>systemctl restart sshd.service</code></p>
+<p>5.以后无需输入密码，用<code>-i</code>参数来使用公钥连接：(缺点：须在./ssh目录下)</p>
+<p><code>ssh -p &lt;端口&gt; -i id_rsa &lt;用户名&gt;@&lt;IP地址&gt;</code></p>
+<h4 id="配置config文件进行连接"><a href="#配置config文件进行连接" class="headerlink" title="配置config文件进行连接"></a>配置config文件进行连接</h4><p>优点：</p>
+<ul>
+<li>可以不用输入密码</li>
+<li>可以不用输入端口号和IP地址</li>
+<li>可以在任何目录下直接连接</li>
+<li>可以配置多个服务器</li>
+</ul>
+<p>1.在./ssh目录下创建config文件<br>2.config文件添加配置，格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Host            alias            #自定义别名</span><br><span class="line">HostName        hostname         #替换为你的ssh服务器ip或domain</span><br><span class="line">Port            port             #ssh服务器端口，默认为22</span><br><span class="line">User            root             #ssh服务器用户名</span><br><span class="line">IdentityFile    ~/.ssh/id_rsa    #第一个步骤生成的公钥文件对应的私钥文件</span><br></pre></td></tr></table></figure>
+<p><img src="https://github.com/CynicKimi/images/raw/master/ssh_config.png" alt="ssh_config"></p>
+<p>以后，就可以用 自定义的别名来登录：<code>ssh alias</code></p>
+<p><img src="https://github.com/CynicKimi/images/raw/master/ssh_config_login.png" alt="ssh_config_login"></p>
+</div><div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>CynicKimi</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="/2019/06/18/win-ssh-scp/">https://cynickimi.github.io/2019/06/18/win-ssh-scp/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>非特殊声明均为本站原创作品，转载时请注明作者和原文链接。</li></ul></div><br><div class="tags"><a href="/tags/ssh/">ssh</a><a href="/tags/scp/">scp</a></div><div class="post-nav"><a class="pre" href="/2019/06/19/Cmder/">windows下的命令行工具Cmder</a><a class="next" href="/2019/06/03/hexo-command/">Hexo搭建</a></div><div id="container"></div><link rel="stylesheet" type="text/css" href="//unpkg.com/gitalk/dist/gitalk.css?v=0.0.0"><script type="text/javascript" src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js?v=0.0.0"></script><script type="text/javascript" src="//unpkg.com/gitalk/dist/gitalk.min.js?v=0.0.0"></script><script>var gitalk = new Gitalk({
+  clientID: 'a7ff0f2e8bd18881bbfe',
+  clientSecret: 'e892bf1782c84cd76f5166180324dfc0c6255a3a',
+  repo: 'cynickimi.github.io',
+  owner: 'cynickimi',
+  admin: ['cynickimi'],
+  id: md5(location.pathname),
+  distractionFreeMode: false
+})
+gitalk.render('container')
+</script></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="clear"><div id="toc"><div class="toc-title"><i class="fa fa-tasks"> 文章目录</i></div><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#SCP"><span class="toc-number">1.</span> <span class="toc-text">SCP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SSH"><span class="toc-number">2.</span> <span class="toc-text">SSH</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#公钥方式登录"><span class="toc-number">2.1.</span> <span class="toc-text">公钥方式登录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置config文件进行连接"><span class="toc-number">2.2.</span> <span class="toc-text">配置config文件进行连接</span></a></li></ol></li></ol></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-open"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tools/">tools</a><span class="category-list-count">2</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-bookmark"> 标签</i></div><div class="tagcloud"><a href="/tags/cmder/" style="font-size: 15px;">cmder</a> <a href="/tags/tools/" style="font-size: 15px;">tools</a> <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/ssh/" style="font-size: 15px;">ssh</a> <a href="/tags/scp/" style="font-size: 15px;">scp</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-book"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/06/19/Cmder/">windows下的命令行工具Cmder</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/18/win-ssh-scp/">WIN10下使用自带的SSH和SCP命令</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/03/hexo-command/">Hexo搭建</a></li></ul></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2019 <a href="/." rel="nofollow">Hello World 42.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
