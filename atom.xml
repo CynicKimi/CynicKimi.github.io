@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://cynickimi.github.io/"/>
-  <updated>2019-06-04T13:45:47.476Z</updated>
+  <updated>2019-06-19T14:44:26.798Z</updated>
   <id>https://cynickimi.github.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>windows下的命令行工具Cmder</title>
+    <link href="https://cynickimi.github.io/2019/06/19/Cmder/"/>
+    <id>https://cynickimi.github.io/2019/06/19/Cmder/</id>
+    <published>2019-06-18T16:00:00.000Z</published>
+    <updated>2019-06-19T14:44:26.798Z</updated>
+    
+    <content type="html"><![CDATA[<p>windows的神器，传言不虚。可以在同一个窗口打开多个Tab，还可以一个Tab分屏多个终端，简直不要太棒</p><h2 id="添加cmder-here"><a href="#添加cmder-here" class="headerlink" title="添加cmder here"></a>添加cmder here</h2><p>右键时可以cmder here，就不用每次打开都项目都去<code>cd</code><br>以<strong>管理员身份</strong>运行<code>Cmder.exe /REGISTER ALL</code><br>(注：没有配置环境变量时，要到该文件的目录去执行该命令，不然会找不到cmder.exe文件。但我没有配置到环境变量，因为我安装了<code>Listary</code>,要启动时也可以快速找到)<br><img src="https://github.com/CynicKimi/images/raw/master/cmder_here.PNG" alt="cmder"></p><h2 id="改变命令提示符λ为"><a href="#改变命令提示符λ为" class="headerlink" title="改变命令提示符λ为`"></a>改变命令提示符<code>λ</code>为`</h2><ul><li>找到文件<code>cmder\vender\clink.lua</code></li><li>将<code>local lambda = &quot;λ&quot;</code>修改为<code>local lambda = &quot;$&quot;</code></li></ul><p><img src="https://github.com/CynicKimi/images/raw/master/prompt.png" alt="cmder"><br>(注：看了好多文章都是修改上一句的<code>{lamb}</code>为<code>$</code>,也可以实现一样的效果，但是不建议这么改。<br>虽然没学过lua，但是也可以看懂下面语法，最终用了<code>string.gsub</code>函数进行了一个字符串替换，将<code>{lamb}</code>替换成<code>lambda</code>变量的内容，而且上面的注释语句也说明了，有时候可能提示符会变成<code>(env)$</code>,如果照网上的改法，就永远只能是<code>$</code>了)</p><h2 id="设置-ll命令"><a href="#设置-ll命令" class="headerlink" title="设置 ll命令"></a>设置 ll命令</h2><p>cmder没有<code>ll</code>命令，可以通过设置alias来实现<br>找到<code>cmder\config\user-aliases.cmd</code>文件<br>添加以下几行带，代码、<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">la=ls -aF --show-control-chars -F --color $*</span><br><span class="line">ll=ls -alF --show-control-chars -F --color $*</span><br></pre></td></tr></table></figure></p><h2 id="快捷键命令"><a href="#快捷键命令" class="headerlink" title="快捷键命令"></a>快捷键命令</h2><table><thead><tr><th style="text-align:center">快捷键</th><th style="text-align:center">说明</th></tr></thead><tbody><tr><td style="text-align:center">ctrl + `</td><td style="text-align:center">调出和隐藏cmder</td></tr><tr><td style="text-align:center">win + alt + p</td><td style="text-align:center">打开设置面板</td></tr><tr><td style="text-align:center">ctrl + t</td><td style="text-align:center">新打开终端窗口</td></tr><tr><td style="text-align:center">shift + alt + number</td><td style="text-align:center">新打开终端窗口(具体见setting-startup-tasks)</td></tr><tr><td style="text-align:center">alt + enter</td><td style="text-align:center">窗口全屏显示</td></tr><tr><td style="text-align:center">Shift + mouse</td><td style="text-align:center">从缓冲区中选择并复制文本</td></tr><tr><td style="text-align:center">Right click / Ctrl + Shift + v</td><td style="text-align:center">粘贴文本</td></tr><tr><td style="text-align:center">ctrl+u</td><td style="text-align:center">删除当前命令行内容</td></tr><tr><td style="text-align:center">ctrl+l</td><td style="text-align:center">清屏</td></tr></tbody></table>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;windows的神器，传言不虚。可以在同一个窗口打开多个Tab，还可以一个Tab分屏多个终端，简直不要太棒&lt;/p&gt;
+&lt;h2 id=&quot;添加cmder-here&quot;&gt;&lt;a href=&quot;#添加cmder-here&quot; class=&quot;headerlink&quot; title=&quot;添加cmder
+      
+    
+    </summary>
+    
+      <category term="tools" scheme="https://cynickimi.github.io/categories/tools/"/>
+    
+    
+      <category term="cmder" scheme="https://cynickimi.github.io/tags/cmder/"/>
+    
+      <category term="tools" scheme="https://cynickimi.github.io/tags/tools/"/>
+    
+  </entry>
   
   <entry>
     <title>Hexo搭建</title>
